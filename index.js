@@ -58,10 +58,19 @@ const hot = Rx.Observable.create((observer) => {
 const coldOne = Rx.Observable.create((observer) => {
   observer.next(Math.random());
 });
-
 const hotOne = coldOne.publish();
-
 hotOne.subscribe((a) => console.log("Subscriber A", a));
 hotOne.subscribe((b) => console.log("Subscriber B", b));
+//hotOne.connect();
 
-hotOne.connect();
+// completion
+const timerOne = Rx.Observable.timer(1000);
+timerOne.finally(() => console.log("done"));
+//.subscribe((val) => console.log(val));
+
+// completion manually
+const intervalOne = Rx.Observable.interval(1000).finally(() =>
+  console.log("All done!")
+);
+const subscriptionInt = intervalOne.subscribe((val) => console.log(val));
+window.setTimeout(() => subscriptionInt.unsubscribe(), 5000);
