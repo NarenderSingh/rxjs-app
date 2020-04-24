@@ -24,6 +24,22 @@ const sub = names
 
 // filter - allow us to filter
 const _numbers = Rx.Observable.of(-2, 3, 4, 5, 6, -9, -5);
-_numbers
-  .filter((number) => number > 0)
-  //.subscribe((number) => console.log(number));
+_numbers.filter((number) => number > 0);
+//.subscribe((number) => console.log(number));
+
+// first
+_numbers.first((number) => number > 3);
+//.subscribe((number) => console.log(number));
+
+// last
+_numbers.last((number) => number > 3);
+//.subscribe((number) => console.log(number));
+
+// throttle & debounce
+// throttleTime : to get first event and wait for throttletime and start the second event and so on.
+const events = Rx.Observable.fromEvent(document, "mousemove");
+events.throttleTime(3000);
+//.subscribe((event) => console.log(event));
+
+// debounceTime : to get the last event after the debounce time
+events.debounceTime(3000).subscribe((event) => console.log(event));
