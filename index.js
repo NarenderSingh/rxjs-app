@@ -53,3 +53,15 @@ const hot = Rx.Observable.create((observer) => {
 
 //hot.subscribe((a) => console.log("Subscriber A", a));
 //hot.subscribe((b) => console.log("Subscriber B", b));
+
+// convert cold to hot obserbables
+const coldOne = Rx.Observable.create((observer) => {
+  observer.next(Math.random());
+});
+
+const hotOne = coldOne.publish();
+
+hotOne.subscribe((a) => console.log("Subscriber A", a));
+hotOne.subscribe((b) => console.log("Subscriber B", b));
+
+hotOne.connect();
